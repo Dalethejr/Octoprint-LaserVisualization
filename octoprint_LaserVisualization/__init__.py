@@ -21,7 +21,12 @@ class LaservisualizationPlugin(octoprint.plugin.SettingsPlugin,
     def get_settings_defaults(self):
         return {
             # put your plugin's default settings here
+            dict(url="https://en.wikipedia.org/wiki/Hello_world")
         }
+    
+    def on_after_startup(self):
+        self._logger.info("Hello World! (more: %s)" % self._settings.get(["url"]))
+
 
     ##~~ AssetPlugin mixin
 
@@ -55,6 +60,10 @@ class LaservisualizationPlugin(octoprint.plugin.SettingsPlugin,
                 "pip": "https://github.com/Dalethejr/OctoPrint-Laservisualization/archive/{target_version}.zip",
             }
         }
+    def get_template_configs(self):
+        return [
+            dict(type="settings", custom_bindings=False)
+        ]
 
 
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
